@@ -11,6 +11,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
@@ -30,11 +31,14 @@ public class Order_StepDefinitions {
         Driver.getDriver().get(ConfigurationReader.getProperty("webTableUrl"));
 
         //calling login method to log in
-        webTableLoginPage.login();
+        webTableLoginPage.login("Test","Tester");
 
+        JavascriptExecutor executor = (JavascriptExecutor) Driver.getDriver();
 
-        //clicking order link to go to order page
+        executor.executeScript("arguments[0].scrollIntoView(true);",basePage.order);
+
         basePage.order.click();
+
 
     }
     @When("user selects product type {string}")

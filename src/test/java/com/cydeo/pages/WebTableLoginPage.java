@@ -31,7 +31,7 @@ public class WebTableLoginPage {
      * Username: Test
      * Password: Tester
      */
-    public void login () {
+    public void login (String s) {
 
         this.inputUsername.sendKeys("Test");
         this.inputPassword.sendKeys("Tester");

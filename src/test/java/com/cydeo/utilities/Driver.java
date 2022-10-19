@@ -4,7 +4,12 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.CommandExecutor;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
+import javax.print.DocFlavor;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 public class Driver {
@@ -50,7 +55,25 @@ public class Driver {
                     driverPool.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
                     break;
 
+                case "remote-chrome":
 
+                    try {
+
+                        String gridAddress = "3.95.222.3";
+
+                        URL url = new URL( "http://" + "3.95.222.3" + ":4444/wd/hub");
+
+                        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+
+                        desiredCapabilities.setBrowserName("chrome");
+
+                        driverPool.set(new RemoteWebDriver(url,desiredCapabilities));
+
+
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    break;
             }
 
         }
@@ -72,4 +95,6 @@ public class Driver {
 
 
     }
+
+
 }
