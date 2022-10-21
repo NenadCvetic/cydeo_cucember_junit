@@ -1,8 +1,10 @@
 package com.cydeo.utilities;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.CommandExecutor;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -44,8 +46,9 @@ public class Driver {
             switch (browserType){
                 case "chrome":
                     WebDriverManager.chromedriver().setup();
-                    driverPool.set(new ChromeDriver());
-                    driverPool.get().manage().window().maximize();
+                    driverPool.set(new ChromeDriver(new ChromeOptions().setHeadless(true)));
+                    driverPool.get().manage().window().setSize(new Dimension(1500,1500));
+                    //driverPool.get().manage().window().maximize();
                     driverPool.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
                     break;
                 case "firefox":
@@ -68,6 +71,11 @@ public class Driver {
                         desiredCapabilities.setBrowserName("chrome");
 
                         driverPool.set(new RemoteWebDriver(url,desiredCapabilities));
+
+                        driverPool.get().manage().window().setSize(new Dimension(1500,1500));
+
+                        driverPool.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+                        break;
 
 
                     } catch (Exception e){
